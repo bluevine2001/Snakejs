@@ -1,0 +1,14 @@
+#score {
+    background-color: #000;
+    color: #fff;
+    font-size: 25px;
+}
+
+body {
+    background-image: url("../img/Snake-Game.jpg");
+    background-repeat: no-repeat;
+}
+
+#defaultCanvas0 {
+    padding-left: 30px;
+}
