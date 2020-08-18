@@ -3,6 +3,11 @@ var s;
 var food;
 let direction;
 
+const eats = new Audio();
+const deaths = new Audio();
+eats.src = "../audio/eat.mp3";
+deaths.src = "../audio/dead.mp3";
+
 function putFood() {
   cols = int(width / slg);
   rows = int(height / slg);
@@ -42,8 +47,10 @@ function snake() {
   this.death = function () {
     for (var i = 0; i < this.tail.length; i++) {
       if (dist(this.x, this.y, this.tail[i].x, this.tail[i].y) < 2) {
+        deaths.play();
         this.tail = [];
         document.getElementById("overlay").style.display = "block";
+        document.getElementById("sun2").style.opacity = 0.5;
         document.getElementById("score2").innerHTML = this.total;
         this.total = 0;
       }
@@ -56,6 +63,7 @@ function snake() {
   this.eat = function () {
     d = dist(this.x, this.y, food.x, food.y);
     if (d < 2) {
+      eats.play();
       this.total++;
       document.getElementById("score").innerHTML = this.total;
       return true;
