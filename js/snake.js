@@ -1,6 +1,7 @@
 var slg = 20;
 var s;
 var food;
+let direction;
 
 function putFood() {
   cols = int(width / slg);
@@ -38,6 +39,16 @@ function snake() {
     rect(this.x, this.y, slg, slg);
     keypressed();
   };
+  this.death = function () {
+    for (var i = 0; i < this.tail.length; i++) {
+      if (dist(this.x, this.y, this.tail[i].x, this.tail[i].y) < 2) {
+        this.tail = [];
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("score2").innerHTML = this.total;
+        this.total = 0;
+      }
+    }
+  };
   this.dir = function (x, y) {
     this.speedx = x;
     this.speedy = y;
@@ -66,19 +77,24 @@ function draw() {
   fill(255, 0, 0);
   rect(food.x, food.y, slg, slg);
   if (s.eat()) putFood();
+  s.death();
 }
 
 function keypressed() {
-  if (keyCode == UP_ARROW) {
+  if (keyCode == UP_ARROW && direction != "DOWN") {
+    direction = "UP";
     console.log("up");
     s.dir(0, -1);
-  } else if (keyCode == DOWN_ARROW) {
+  } else if (keyCode == DOWN_ARROW && direction != "UP") {
+    direction = "DOWN";
     console.log("down");
     s.dir(0, 1);
-  } else if (keyCode == LEFT_ARROW) {
+  } else if (keyCode == LEFT_ARROW && direction != "RIGHT") {
+    direction = "LEFT";
     console.log("left");
     s.dir(-1, 0);
-  } else if (keyCode == RIGHT_ARROW) {
+  } else if (keyCode == RIGHT_ARROW && direction != "LEFT") {
+    direction = "RIGHT";
     console.log("right");
     s.dir(1, 0);
   }
