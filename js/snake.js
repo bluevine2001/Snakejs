@@ -99,3 +99,4 @@ function keypressed() {
     s.dir(1, 0);
   }
 }
+// wesh la miff 
